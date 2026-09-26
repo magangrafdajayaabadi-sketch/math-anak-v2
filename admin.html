@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel Admin — Math Fun Quest</title>
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#5B4FD6">
+  <link rel="icon" href="assets/icons/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <div class="wrap">
+
+    <header class="site-head">
+      <div class="logo-badge" id="brand-logo" aria-hidden="true">MQ</div>
+      <div>
+        <div class="site-title">Panel Admin</div>
+        <div class="site-tagline" id="brand-tagline">Kelola tampilan dan pengaturan game</div>
+      </div>
+      <div class="head-actions">
+        <a class="btn btn-sm" href="index.html">← Lihat Game</a>
+        <button class="btn btn-sm" id="btn-logout" style="display:none">Keluar</button>
+      </div>
+    </header>
+
+    <!-- ================= LOGIN ================= -->
+    <main id="screen-login">
+      <div class="card" style="max-width:420px;margin:24px auto">
+        <p style="font-family:var(--font-display);font-weight:500;font-size:20px;margin-bottom:14px">Masuk sebagai Admin</p>
+        <div class="field">
+          <label for="login-pass">Password admin</label>
+          <input type="password" id="login-pass" placeholder="Masukkan password" autocomplete="current-password">
+          <p class="hint">Password default ada di file <code>config.js</code>. Ganti setelah login pertama.</p>
+        </div>
+        <p id="login-error" style="color:var(--danger);font-weight:700;font-size:14px;display:none;margin-bottom:10px">Password salah. Coba lagi.</p>
+        <button class="btn btn-primary" id="btn-login" style="width:100%;justify-content:center">Masuk</button>
+      </div>
+    </main>
+
+    <!-- ================= DASHBOARD ================= -->
+    <main id="screen-admin" style="display:none">
+
+      <div class="admin-note">
+        Pengaturan di panel ini tersimpan di browser (localStorage) dan langsung menimpa nilai default —
+        cocok untuk uji coba cepat. Untuk perubahan <strong>permanen bagi semua pengunjung</strong>,
+        salin hasilnya lewat tab <strong>Backup</strong> lalu tempel ke file <code>config.js</code> sebelum deploy ulang.
+      </div>
+
+      <div class="admin-tabs" role="tablist">
+        <button class="tab-btn active" data-tab="branding">Branding</button>
+        <button class="tab-btn" data-tab="game">Pengaturan Game</button>
+        <button class="tab-btn" data-tab="board">Papan Juara</button>
+        <button class="tab-btn" data-tab="security">Keamanan</button>
+        <button class="tab-btn" data-tab="backup">Backup</button>
+      </div>
+
+      <!-- ===== TAB: BRANDING ===== -->
+      <section class="tab-panel active" id="tab-branding">
+        <div class="card">
+          <div class="field">
+            <label for="f-appName">Nama aplikasi / brand</label>
+            <input type="text" id="f-appName">
+          </div>
+          <div class="field">
+            <label for="f-tagline">Tagline</label>
+            <input type="text" id="f-tagline">
+          </div>
+          <div class="field">
+            <label for="f-logoUrl">URL logo (opsional)</label>
+            <input type="url" id="f-logoUrl" placeholder="https://contoh.com/logo.png">
+            <p class="hint">Kosongkan untuk memakai logo huruf otomatis dari inisial nama brand.</p>
+          </div>
+
+          <div class="field">
+            <label>Warna tema</label>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px">
+              <div class="color-row"><input type="color" id="f-colorPrimary"><span>Utama</span></div>
+              <div class="color-row"><input type="color" id="f-colorAccent"><span>Aksen</span></div>
+              <div class="color-row"><input type="color" id="f-colorSuccess"><span>Benar</span></div>
+              <div class="color-row"><input type="color" id="f-colorDanger"><span>Salah</span></div>
+            </div>
+            <p class="hint">Perubahan warna langsung terlihat di panel ini sebagai pratinjau.</p>
+          </div>
+
+          <div class="field">
+            <label for="f-footerText">Teks footer</label>
+            <input type="text" id="f-footerText">
+          </div>
+          <div class="field">
+            <label for="f-contactWa">Nomor WhatsApp (opsional)</label>
+            <input type="text" id="f-contactWa" placeholder="6281234567890">
+            <p class="hint">Format internasional tanpa tanda +. Kosongkan untuk menyembunyikan tombol kontak.</p>
+          </div>
+          <div class="field">
+            <label for="f-contactLabel">Label tombol kontak</label>
+            <input type="text" id="f-contactLabel">
+          </div>
+
+          <div class="save-bar">
+            <button class="btn btn-primary" data-save>Simpan perubahan</button>
+            <a class="btn" href="index.html" target="_blank" rel="noopener">Pratinjau game ↗</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== TAB: GAME ===== -->
+      <section class="tab-panel" id="tab-game">
+        <div class="card">
+          <div class="field">
+            <label for="f-questionsPerRound">Jumlah soal per ronde</label>
+            <input type="number" id="f-questionsPerRound" min="5" max="20">
+            <p class="hint">Tidak berlaku untuk mode Tantangan Teman, yang selalu 10 soal agar adil di semua perangkat.</p>
+          </div>
+
+          <div class="field">
+            <label for="f-hearts">Jumlah nyawa per ronde</label>
+            <input type="number" id="f-hearts" min="1" max="9">
+            <p class="hint">Hanya berlaku di mode Main Sendiri. Ronde berakhir bila nyawa habis.</p>
+          </div>
+
+          <div class="field">
+            <label>Level yang aktif</label>
+            <div class="check-row"><input type="checkbox" id="f-lv1"><label for="f-lv1" style="margin:0">Level 1 — <span data-lvname="1"></span></label></div>
+            <div class="check-row"><input type="checkbox" id="f-lv2"><label for="f-lv2" style="margin:0">Level 2 — <span data-lvname="2"></span></label></div>
+            <div class="check-row"><input type="checkbox" id="f-lv3"><label for="f-lv3" style="margin:0">Level 3 — <span data-lvname="3"></span></label></div>
+            <div class="check-row"><input type="checkbox" id="f-lv4"><label for="f-lv4" style="margin:0">Level 4 — <span data-lvname="4"></span></label></div>
+          </div>
+
+          <div class="field">
+            <label>Nama level (bisa disesuaikan dengan brand)</label>
+            <div style="display:grid;gap:10px">
+              <input type="text" id="f-lvName1" placeholder="Nama level 1">
+              <input type="text" id="f-lvName2" placeholder="Nama level 2">
+              <input type="text" id="f-lvName3" placeholder="Nama level 3">
+              <input type="text" id="f-lvName4" placeholder="Nama level 4">
+            </div>
+          </div>
+
+          <div class="check-row"><input type="checkbox" id="f-showLeaderboard"><label for="f-showLeaderboard" style="margin:0">Tampilkan papan juara</label></div>
+          <div class="check-row"><input type="checkbox" id="f-soundEnabled"><label for="f-soundEnabled" style="margin:0">Efek suara aktif secara default</label></div>
+
+          <div class="save-bar">
+            <button class="btn btn-primary" data-save>Simpan perubahan</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== TAB: PAPAN JUARA ===== -->
+      <section class="tab-panel" id="tab-board">
+        <div class="card">
+          <div class="board-title">🏆 Papan juara saat ini</div>
+          <div id="admin-board-list"></div>
+          <div class="save-bar" style="margin-top:16px">
+            <button class="btn" id="btn-reset-board" style="border-color:var(--danger);color:var(--danger)">Hapus semua skor</button>
+          </div>
+          <p class="hint" style="margin-top:10px">Papan juara tersimpan per-browser (localStorage), sehingga setiap perangkat pemain punya papannya sendiri.</p>
+        </div>
+      </section>
+
+      <!-- ===== TAB: KEAMANAN ===== -->
+      <section class="tab-panel" id="tab-security">
+        <div class="card">
+          <div class="field">
+            <label for="f-newPass">Password admin baru</label>
+            <input type="password" id="f-newPass" placeholder="Minimal 6 karakter" autocomplete="new-password">
+          </div>
+          <div class="field">
+            <label for="f-newPass2">Ulangi password baru</label>
+            <input type="password" id="f-newPass2" autocomplete="new-password">
+          </div>
+          <div class="save-bar">
+            <button class="btn btn-primary" id="btn-change-pass">Ganti password</button>
+          </div>
+          <p class="hint" style="margin-top:12px">
+            Catatan: proteksi ini berjalan di sisi browser dan cukup untuk melindungi pengaturan tampilan game.
+            Jangan menyimpan data sensitif di aplikasi ini. Untuk keamanan permanen, ganti juga
+            <code>adminPassword</code> di file <code>config.js</code> sebelum deploy.
+          </p>
+        </div>
+      </section>
+
+      <!-- ===== TAB: BACKUP ===== -->
+      <section class="tab-panel" id="tab-backup">
+        <div class="card">
+          <div class="field">
+            <label for="f-export">Konfigurasi saat ini (JSON)</label>
+            <textarea id="f-export" rows="10" spellcheck="false" style="font-family:monospace;font-size:13px"></textarea>
+            <p class="hint">Salin JSON ini lalu tempel nilainya ke <code>window.APP_CONFIG</code> di file <code>config.js</code> agar menjadi pengaturan permanen. Atau simpan sebagai backup.</p>
+          </div>
+          <div class="save-bar">
+            <button class="btn btn-primary" id="btn-copy-export">Salin ke clipboard</button>
+            <button class="btn" id="btn-import">Terapkan JSON di atas</button>
+            <button class="btn" id="btn-reset-config" style="border-color:var(--danger);color:var(--danger)">Kembalikan ke default config.js</button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="site-foot">
+      <p id="footer-text">Panel Admin</p>
+    </footer>
+  </div>
+
+  <div class="toast" id="toast">Tersimpan</div>
+
+  <script src="config.js"></script>
+  <script src="assets/admin.js"></script>
+</body>
+</html>
