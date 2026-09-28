@@ -29,7 +29,7 @@ window.APP_CONFIG = {
   colorDanger:  "#E24B4A",   // jawaban salah
 
   /* ---------- FOOTER & KONTAK ---------- */
-  footerText: "© 2026 Math Fun Quest — Modul Matematika Anak SD",
+  footerText: "© by ProdukVIP",
   contactWa: "",             // contoh: "6281234567890" (tanpa +). Kosongkan untuk sembunyikan tombol WA.
   contactLabel: "Hubungi Kami",
 
